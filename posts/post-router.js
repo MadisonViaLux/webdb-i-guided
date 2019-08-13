@@ -5,6 +5,8 @@ const db = require('../data/db-config.js');
 
 const router = express.Router();
 
+
+
 router.get('/', (req, res) => {
     db.select('id', 'title', 'contents').from('posts')
     // db('posts')
@@ -13,6 +15,8 @@ router.get('/', (req, res) => {
         res.status.apply(500).json({message: 'nothing'})
     })
 });
+
+
 
 router.get('/:id', (req, res) => {
     db('posts')
@@ -24,6 +28,8 @@ router.get('/:id', (req, res) => {
     })
 });
 
+
+
 router.post('/', (req, res) => {
     const post = req.body;
     db('posts').insert(post, 'id')
@@ -32,6 +38,8 @@ router.post('/', (req, res) => {
         res.status.apply(500).json({message: 'nothing'})
     })
 });
+
+
 
 router.put('/:id', (req, res) => {
     const changes = req.body
@@ -50,6 +58,11 @@ router.put('/:id', (req, res) => {
     })
 });
 
+
+
+
+
+
 router.delete('/:id', (req, res) => {
     db('posts')
     .where('id', '=', req.params.id)
@@ -65,5 +78,9 @@ router.delete('/:id', (req, res) => {
         res.status.apply(500).json({message: 'nothing'})
     })
 });
+
+
+
+
 
 module.exports = router;
