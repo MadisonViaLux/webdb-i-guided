@@ -17,8 +17,10 @@ const router = express.Router();
 // });
 
 router.get('/', (req, res) => {
-    db.select('*')
-        .from('posts')
+    // db.select('*')
+    //     .from('posts')
+    db('posts')
+        .select('id', 'title', 'contents')
         .then(posts => {
             res.status(200).json(posts)
         })
@@ -41,6 +43,19 @@ router.get('/', (req, res) => {
 // });
 
 router.get('/:id', (req, res) => {
+
+    const {id} = req.params
+
+    db('posts')
+        .where({id})
+        .first()
+        .then(posts => {
+            res.status(200).json(posts)
+        })
+        .catch(err => {
+            res.json(err)
+        })
+
     
 });
 
