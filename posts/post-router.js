@@ -71,7 +71,23 @@ router.get('/:id', (req, res) => {
 // });
 
 router.post('/', (req, res) => {
-    
+
+    const postData = req.body
+
+    db('posts')
+        .insert(postData, 'id')
+        .then( ( [id] ) => {
+            db('posts')
+                .where({id})
+                .first()
+                .then(post => {
+                    res.status(200).json(post)
+                })
+            res.status(200).json(id)
+        })
+        .catch(err => {
+            res.json(err)
+        })
 });
 
 
